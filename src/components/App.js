@@ -1,73 +1,47 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPosts } from "../actions/posts";
-import { PostsList } from "./";
+import { PostsList, Navbar } from "./";
 import propTypes from "prop-types";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom"; // use browserrouter as router
 
+// dummy components
+const Login = () => <div>Login</div>;
+const Home = () => <div>Home</div>;
+const SignUp = () => <div>sign</div>;
 export class App extends Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
   }
+
   render() {
     const { posts } = this.props;
     console.log(this.props);
     return (
-      <div>
-         <nav className="nav">
-          <div className="left-div">
-            <img
-              src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
-              alt="logo"
-            />
-          </div>
-          <div className="search-container">
-            <img
-              className="search-icon"
-              src="https://image.flaticon.com/icons/svg/483/483356.svg"
-              alt="search-icon"
-            />
-            <input placeholder="Search" />
-
-            <div className="search-results">
-              <ul>
-                <li className="search-results-row">
-                  <img
-                    src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                    alt="user-dp"
-                  />
-                  <span>John Doe</span>
-                </li>
-                <li className="search-results-row">
-                  <img
-                    src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                    alt="user-dp"
-                  />
-                  <span>John Doe</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="right-nav">
-            <div className="user">
-              <img
-                src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                alt="user-dp"
-                id="user-dp"
-              />
-              <span>John Doe</span>
-            </div>
-            <div className="nav-links">
-              <ul>
-                <li>Log in</li>
-                <li>Log out</li>
-                <li>Register</li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
-        <PostsList posts={posts} />
-      </div>
+      // wrap root component within Router
+      <Router>
+        <div>
+          {/* {Navbar and list will be common in all as it is outside the route} */}
+          <Navbar />
+          {/* <PostsList posts={posts} /> */}
+          <ul>
+            <li>
+              {/* {using a tag instead of Link will refresh the page and we don,t want that} */}
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/signup">SignUp</Link>
+            </li>
+          </ul>
+          {/* {depending on path the component will be rendered but code above this is common in all case} */}
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
+        </div>
+      </Router>
     );
   }
 }
@@ -78,7 +52,7 @@ function mapStateToProps(state) {
   };
 }
 
-App.propTypes={
-  posts:propTypes.array.isRequired
-}
+App.propTypes = {
+  posts: propTypes.array.isRequired,
+};
 export default connect(mapStateToProps)(App);
