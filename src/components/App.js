@@ -1,17 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPosts } from "../actions/posts";
-import { PostsList, Navbar, Home, Page404 } from "./";
+import { PostsList, Navbar, Home, Page404, Login, Register } from "./";
 import propTypes from "prop-types";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom"; // use browserrouter as router
 
-// dummy components
-const Login = () => <div>Login</div>;
 // when we render component with route react passes some porops to the components ex:history,location,match,etc
-const SignUp = (props) => {
-  console.log(props);
-  return <div>sign</div>;
-};
+
 export class App extends Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
@@ -36,7 +31,7 @@ export class App extends Component {
               <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/signup">SignUp</Link>
+              <Link to="/signup">Sign Up</Link>
             </li>
           </ul>
           {/* {depending on path the component will be rendered but code above this is common in all case} */}
@@ -51,7 +46,7 @@ export class App extends Component {
               }}
             />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={SignUp} />
+            <Route path="/signup" component={Register} />
             {/* {will be called if no other path matches } */}
             <Route component={Page404} />
           </Switch>
