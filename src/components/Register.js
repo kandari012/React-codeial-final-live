@@ -3,14 +3,24 @@ import React, { Component } from "react";
 class Register extends Component {
   constructor(props) {
     super(props);
-    this.emailInputRef = React.createRef(); // reference for emailinput
-    this.passwodInputRef = React.createRef(); //when we submit form we get the value of input field in attached reference
+    //will save user input in react state
+    this.state = {
+      email: "",
+      password: "",
+    };
   }
   // on button click will prevent submit default prop
   handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(this.emailInputRef);
-    console.log(this.passwodInputRef);
+    console.log(this.state.email);
+    console.log(this.state.password);
+  };
+  // on input chnage will capture the value
+  handleEmailChange = (e) => {
+    this.setState({ email: e.target.value });
+  };
+  handlePasswordChange = (e) => {
+    this.setState({ password: e.target.value });
   };
   render() {
     return (
@@ -21,7 +31,8 @@ class Register extends Component {
             type="email"
             placeholder="Email"
             required
-            ref={this.emailInputRef}
+            onChange={this.handleEmailChange}
+            value={this.state.email}
           />
         </div>
         <div className="field">
@@ -29,7 +40,8 @@ class Register extends Component {
             type="password"
             placeholder="Password"
             required
-            ref={this.passwodInputRef}
+            onChange={this.handlePasswordChange}
+            value={this.state.password}
           />
         </div>
         <div className="field">
