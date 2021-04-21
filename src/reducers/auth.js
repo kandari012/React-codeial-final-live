@@ -6,7 +6,7 @@ import {
 
 const initialAuthState = {
   user: {},
-  errors: null,
+  error: null,
   isLoggedIn: false,
   inProgress: false,
 };
@@ -24,7 +24,7 @@ export default function auth(state = initialAuthState, action) {
         ...state,
         inProgress: false,
         isLoggedIn: true,
-        errors: null,
+        error: null,
         user: action.user,
       };
     }
@@ -32,7 +32,7 @@ export default function auth(state = initialAuthState, action) {
       return {
         ...state,
         inProgress: false,
-        errors: action.error,
+        error: action.error,
       };
     }
     default:

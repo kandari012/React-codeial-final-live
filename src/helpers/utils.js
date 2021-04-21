@@ -6,7 +6,7 @@ export function getFormBody(params) {
     let encodedKey = encodeURIComponent(property); // if "user name"=>"user%20name"
     let encodedValue = encodeURIComponent(params[property]); // aakash 123=>aakash&20123
     //username=rahul
-    formBody(encodedKey + "=" + encodedValue);
+    formBody.push(encodedKey + "=" + encodedValue);
   }
   //username=rahul&password=123
   return formBody.join("&");
